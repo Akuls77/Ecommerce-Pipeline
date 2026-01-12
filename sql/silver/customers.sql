@@ -1,25 +1,28 @@
-create or replace table silver.customers as
-select
-  customer_id,
-  first_name,
-  last_name,
-  email,
-  phone,
-  country,
-  TO_DATE(created_at) as created_date,
-  case
-    when lower(is_active) = 'true' then true
-    else false
-  end as is_active,
-  ingested_at
-from (
-  select *, 
-    row_number() over (
-        partition by customer_id
-        order by ingested_at desc
-    ) as rn
-    from bronze.customers_raw
-    where customer_id is not null
+CREATE OR REPLACE TABLE SILVER.CUSTOMERS AS
+SELECT
+    customer_id,
+    first_name,
+    last_name,
+    email,
+    phone,
+    country,
+    TO_DATE(created_at) AS created_date,
+    CASE 
+        WHEN LOWER(is_active) = 'true' THEN TRUE
+        ELSE FALSE
+    END AS is_active,
+    CASE
+        WHEN email LIKE '%@%' THEN TRUE
+        ELSE FALSE
+    END AS is_email_valid,
+    ingested_at
+FROM (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY customer_id
+               ORDER BY ingested_at DESC
+           ) AS rn
+    FROM BRONZE.CUSTOMERS_RAW
+    WHERE customer_id IS NOT NULL
 )
-where rn = 1
-and email like '%@%';
+WHERE rn = 1;

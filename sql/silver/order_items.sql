@@ -1,14 +1,14 @@
-create table silver.order_items as
-select
+CREATE OR REPLACE TABLE SILVER.ORDER_ITEMS AS
+SELECT
     oi.order_item_id,
     oi.order_id,
     oi.product_id,
-    cast(oi.quantity as number) as quantity,
-    cast(oi.unit_price as number(10, 2)) as unit_price
-from bronze.order_items_raw as oi
-inner join silver.orders as o
-    on oi.order_id = o.order_id
-inner join silver.products p
-    on oi.product_id = p.product_id
-where cast(oi.quantity as number) > 0
-  and cast(oi.unit_price as number) >= 0;
+    CAST(oi.quantity AS NUMBER) AS quantity,
+    CAST(oi.unit_price AS NUMBER(10,2)) AS unit_price
+FROM BRONZE.ORDER_ITEMS_RAW oi
+LEFT JOIN SILVER.ORDERS o
+    ON oi.order_id = o.order_id
+LEFT JOIN SILVER.PRODUCTS p
+    ON oi.product_id = p.product_id
+WHERE CAST(oi.quantity AS NUMBER) > 0
+  AND CAST(oi.unit_price AS NUMBER) >= 0;
