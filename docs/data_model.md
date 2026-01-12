@@ -3,7 +3,6 @@
 This project follows a layered data warehouse architecture using Bronze, Silver, Gold, and Mart layers.
 Each layer has a clear responsibility to ensure data quality, scalability, and ease of analysis.
 
----
 
 ## Bronze Layer (Raw Data)
 
@@ -24,7 +23,6 @@ Characteristics:
 - Duplicate and invalid records are allowed
 - Ingestion timestamp is added for traceability
 
----
 
 ## Silver Layer (Cleaned & Validated Data)
 
@@ -45,7 +43,6 @@ Tables:
 - SILVER.PAYMENTS
 - SILVER.SHIPMENTS
 
----
 
 ## Gold Layer (Analytics Model)
 
@@ -73,7 +70,6 @@ The Gold layer follows dimensional modeling principles and is optimized for anal
 - GOLD.FACT_PAYMENTS  
   Grain: One row per payment
 
----
 
 ## Mart Layer (Reporting)
 

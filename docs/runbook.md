@@ -2,16 +2,12 @@
 
 This document explains how to set up and run the analytics pipeline end-to-end.
 
----
-
 ## Prerequisites
 
 - Snowflake free trial account
 - Python 3.x installed
 - Git installed
 - VS Code (or any IDE)
-
----
 
 ## Initial Setup
 
@@ -20,17 +16,13 @@ This document explains how to set up and run the analytics pipeline end-to-end.
 3. Install dependencies using requirements.txt
 4. Create a .env file with Snowflake credentials
 
----
-
 ## Snowflake Setup
 
-1. Create database `ECOMMERCE_DWH`
+1. Create database `ECOMMERCE`
 2. Create schemas: BRONZE, SILVER, GOLD, MART
 3. Create warehouse `COMPUTE_WH`
 4. Create internal stage for CSV upload
 5. Upload source CSV files to Snowflake stage
-
----
 
 ## Pipeline Execution Steps
 
@@ -40,11 +32,9 @@ This document explains how to set up and run the analytics pipeline end-to-end.
 4. Execute Mart SQL scripts for reporting datasets
 5. Run Python pipeline for data quality checks
 
----
 
 ## Running Python Pipeline
 
 From project root:
 
-```bash
 python -m python.orchestration.run_pipeline
